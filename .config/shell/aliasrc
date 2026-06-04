@@ -1,0 +1,41 @@
+#!/bin/sh
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+alias \
+    cp="cp -iv" mv="mv -iv" rm="rm -vI" \
+    bc="bc -ql" rsync="rsync -vrPlu" mkd="mkdir -pv"
+
+alias \
+    ls="ls -hN --color=auto --group-directories-first" \
+    grep="grep --color=auto" diff="diff --color=auto" ip="ip -color=auto"
+
+alias ka="killall" g="git" e="$EDITOR" v="$EDITOR"
+
+alias \
+    pum="git pull origin" \
+    cmt="git commit -a --allow-empty-message -m ''" \
+    psh="git add . && git commit -a --allow-empty-message -m '' && git push origin" \
+    pshcmt="git commit -a --allow-empty-message -m '' && git push origin"
+
+
+alias srun='srun --account=torch_pr_1008_general'
+alias srunc='srun --pty -c 2 --mem=5GB "$(command -v zsh)"'
+
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias sqq="squeue --account=torch_pr_1008_general"
+# alias sqqs="squeue | grep 'stats'"
+alias runjupyter="jupyter lab --no-browser --ip=$(hostname -i)"
+
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rsync="rsync -vrPlu"
+alias mkd="mkdir -pv"
+alias grep="grep --color=auto"
+alias diff="diff --color=auto"
+alias ccat="highlight --out-format=ansi"
+alias ip="ip -color=auto"
+
+
+alias tmux='tmux -f ~/.config/tmux/tmux.conf'
