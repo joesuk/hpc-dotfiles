@@ -4,3 +4,4 @@ verlg="cd /scratch/js10454/verl_grpo && ls -A" \
 cfv="$EDITOR $HOME/.config/nvim/init.vim" \
 cfs="$EDITOR $HOME/.config/shell/shortcutrc" \
 cfa="$EDITOR $HOME/.config/shell/aliasrc" \
+watch='watch ' \
