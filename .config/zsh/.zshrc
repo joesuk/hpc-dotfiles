@@ -99,3 +99,103 @@ export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 # homebrew
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 [ -x "$HOME/.linuxbrew/bin/brew" ] && eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+
+# torch container related stuff
+export TORCH_CONTAINER_TOOL="/scratch/js10454/verl_grpo/workspace/entropy-code/scripts/torch_container_shell.sh"
+
+tc() {
+    "$TORCH_CONTAINER_TOOL" "$@"
+}
+
+tcpu() {
+    "$TORCH_CONTAINER_TOOL" --cpu "$@"
+}
+
+tl40s() {
+    "$TORCH_CONTAINER_TOOL" --gpu l40s "$@"
+}
+
+th200() {
+    "$TORCH_CONTAINER_TOOL" --gpu h200 "$@"
+}
+
+tcrw() {
+    "$TORCH_CONTAINER_TOOL" --cpu --rw "$@"
+}
+
+# Quick CPU checks: imports, config inspection, small scripts
+tcpuq() {
+  tcpu \
+    --cpus 2 \
+    --mem 8GB \
+    --time 00:30:00 \
+    "$@"
+}
+
+# Normal CPU debugging inside the container
+tcpud() {
+  tcpu \
+    --cpus 4 \
+    --mem 32GB \
+    --time 02:00:00 \
+    "$@"
+}
+
+# High-memory CPU work: setup, preprocessing, package inspection
+tcpuh() {
+  tcpu \
+    --cpus 8 \
+    --mem 64GB \
+    --time 04:00:00 \
+    "$@"
+}
+
+# Writable-overlay setup/install session
+tsetup() {
+  tcpu \
+    --rw \
+    --cpus 8 \
+    --mem 64GB \
+    --time 04:00:00 \
+    "$@"
+}
+
+# Quick L40S check: CUDA, imports, nvidia-smi
+tl40sq() {
+  tl40s \
+    --gpus 1 \
+    --cpus 4 \
+    --mem 32GB \
+    --time 00:30:00 \
+    "$@"
+}
+
+# L40S model-loading / vLLM / inference debugging
+tl40sv() {
+  tl40s \
+    --gpus 1 \
+    --cpus 8 \
+    --mem 80GB \
+    --time 01:00:00 \
+    "$@"
+}
+
+# L40S GRPO/Ray troubleshooting
+tl40sg() {
+  tl40s \
+    --gpus 1 \
+    --cpus 16 \
+    --mem 120GB \
+    --time 02:00:00 \
+    "$@"
+}
+
+# Two-L40S distributed debugging
+tl40s2g() {
+  tl40s \
+    --gpus 2 \
+    --cpus 16 \
+    --mem 160GB \
+    --time 02:00:00 \
+    "$@"
+}
