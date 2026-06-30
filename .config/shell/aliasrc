@@ -20,7 +20,9 @@ alias \
 
 alias srun='srun --account=torch_pr_1008_general'
 alias srunc='srun --pty -c 2 --time=10:00:00 --mem=5GB "$(command -v zsh)"'
+alias sruncshort='srun --pty -c 2 --time=4:00:00 --mem=5GB "$(command -v zsh)"'
 alias srunc64='srun --account=torch_pr_1008_general --pty --cpus-per-task=4 --mem=64GB --time=10:00:00 "$(command -v zsh)"'
+alias srunc64short='srun --account=torch_pr_1008_general --pty --cpus-per-task=4 --mem=64GB --time=4:00:00 "$(command -v zsh)"'
 
 alias rm="rm -i"
 alias cp="cp -i"
@@ -40,3 +42,4 @@ alias ip="ip -color=auto"
 
 
 alias tmux='tmux -f ~/.config/tmux/tmux.conf'
+alias gpufree='bash ~/.local/share/gpu_free.sh'
