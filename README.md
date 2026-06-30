@@ -1,13 +1,19 @@
 # HPC dotfiles
 
-Shell (zsh), editor (nvim), and tmux config for SLURM clusters, plus the cross-machine clipboard wiring. Built for a headless, rootless, shared-filesystem cluster accessed over SSH from a local suckless `st` terminal.
+These are dotfiles for use with a headless, rootless, shared-filesystem slurm-based HPC cluster over ssh. I originally designed it to port over as much of my [local dotfiles](https://github.com/joesuk/dotfiles) to cluster computing. In particular, I use a personal fork of the [suckless `st` terminal](https://github.com/joesuk/st), but this is not required. The only terminal-specific feature is OSC 52 clipboard forwarding from nvim/tmux back to my local machine (see below).
+
+## programs/features
+
+* zsh shell
+* nvim text editor
+* personal tmux config for SLURM clusters, plus the cross-machine clipboard wiring.
+* custom bash scripts and shell aliases and shortcuts for QOL.
 
 ## Assumptions (for a "similar infra" cluster)
 
 - SLURM with `srun`/`module` (Lmod or environment-modules).
 - No root: everything installs into `$HOME`, which is on a shared filesystem all nodes mount.
 - Login nodes and compute nodes may run different OS images, so anything in a node-local path (e.g. `/usr/bin`) is not guaranteed to exist on compute nodes. Only `$HOME` and the module software tree are reliably shared.
-- You connect from a local `st` terminal over SSH, optionally through tmux on the cluster.
 
 ## One-time setup on your LOCAL machine
 
@@ -80,13 +86,13 @@ Key points:
 
 ## Interactive jobs
 
-Use the `srunc` alias (defined in `aliasrc`):
+For example, one may run the `srunc` alias (defined in `aliasrc`):
 
 ```sh
 alias srunc='srun --pty -c 2 --mem=5GB -t 2:00:00 /bin/bash'
 ```
 
-It launches `/bin/bash`, not zsh directly. `/bin/bash` is the canonical `--pty` target and avoids the pty-attach failures seen when launching a module binary directly. The `.bashrc` handoff then drops you into zsh on the compute node, with the zsh module already on `PATH` because `srun` exports your environment by default.
+It launches `/bin/bash`, not zsh directly. `/bin/bash` is the canonical `--pty` target and avoids the pty-attach failures seen when launching a module binary directly. The `.bashrc` handoff then drops you into zsh on the compute node, with the zsh module already on `PATH` because `srun` exports your environment by default. Other aliases and shortcuts can be found in `.config/shell/`.
 
 ## Clipboard (yank in nvim -> local clipboard)
 
@@ -121,3 +127,7 @@ command -v zsh             # should be the module/shared path, not /usr/bin/zsh
 command -v vim             # should resolve to nvim
 ```
 Then yank a line in nvim and paste it into a local app to confirm the clipboard chain.
+
+## useful scripts
+
+can be found under `.local/share`.
